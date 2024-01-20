@@ -75,6 +75,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
         this.brokerController = brokerController;
     }
 
+    //TODO to-read
     @Override
     public RemotingCommand processRequest(final ChannelHandlerContext ctx,
         RemotingCommand request) throws RemotingCommandException {
