@@ -37,6 +37,10 @@ public class PullRequestHoldService extends ServiceThread {
     private ConcurrentMap<String/* topic@queueId */, ManyPullRequest> pullRequestTable =
         new ConcurrentHashMap<String, ManyPullRequest>(1024);
 
+    /**
+     * TODO to-read
+     * @param brokerController
+     */
     public PullRequestHoldService(final BrokerController brokerController) {
         this.brokerController = brokerController;
     }
