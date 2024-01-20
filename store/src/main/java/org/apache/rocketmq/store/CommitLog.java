@@ -515,7 +515,11 @@ public class CommitLog {
     public long getBeginTimeInLock() {
         return beginTimeInLock;
     }
-
+    /**
+     * TODO to-read
+     * @param msg
+     * @return
+     */
     public PutMessageResult putMessage(final MessageExtBrokerInner msg) {
         // Set the storage time
         msg.setStoreTimestamp(System.currentTimeMillis());
