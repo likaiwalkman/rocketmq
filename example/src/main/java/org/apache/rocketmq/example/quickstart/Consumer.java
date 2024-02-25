@@ -36,7 +36,7 @@ public class Consumer {
          * Instantiate with specified consumer group name.
          */
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name_4");
-
+        consumer.setNamesrvAddr("127.0.0.1:9876");
         /*
          * Specify name server addresses.
          * <p/>
@@ -58,6 +58,10 @@ public class Consumer {
          * Subscribe one more more topics to consume.
          */
         consumer.subscribe("TopicTest", "*");
+        consumer.setPullBatchSize(5);
+        consumer.setConsumeMessageBatchMaxSize(5);
+        consumer.setConsumeThreadMax(1);
+        consumer.setConsumeThreadMin(1);
 
         /*
          *  Register callback to execute on arrival of messages fetched from brokers.
@@ -65,8 +69,11 @@ public class Consumer {
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
             @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                ConsumeConcurrentlyContext context) {
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+                int size = msgs.size();
+                System.out.println("messageSize:"+size);
+                String lastMsgId = msgs.get(size - 1).getMsgId();
+                System.out.println("lastMsgId:"+ lastMsgId);
                 System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
